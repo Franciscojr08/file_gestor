@@ -22,5 +22,5 @@ async def add_data(conta: str, agencia: str, texto: str, valor: float):
 	return await FileProcessor().add_data_to_gile(data)
 
 @router.delete("/file/delete_data")
-async def delete_data():
-	return {"message": "Dado removido com sucesso"}
+async def delete_data(line_selected: int):
+	return await FileProcessor().delete_line(line_selected)
