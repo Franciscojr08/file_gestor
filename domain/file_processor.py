@@ -3,12 +3,16 @@ import os
 
 from fastapi import HTTPException, status, UploadFile, File
 
+from service.Client_API import APIClient
+
+
 class FileProcessor:
 	""" Manager of files and folders processor. """
 
 	def __init__(self):
 		self.file_path = 'data/seu_file.csv'
 		self.directory = 'data'
+		self.api_client = APIClient()
 
 	async def list_file_data(self, file_name):
 		"""
@@ -62,7 +66,7 @@ class FileProcessor:
 
 			csv_reader = csv.DictReader(decoded_file)
 			for row in csv_reader:
-				print(row)
+				self.api_client.send_data(row)
 
 			return {"mensagem": f"Arquivo {file.filename} criado com sucesso"}
 		except Exception as e:
